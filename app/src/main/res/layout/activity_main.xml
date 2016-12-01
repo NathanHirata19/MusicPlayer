@@ -41,16 +41,54 @@ tools:context="com.academy.app.musicplayer.MainActivity">
 
 
 <TextView
-    android:id="@+id/view4"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true"
-    android:textColor="#000000"
-    android:text="words"
-    android:layout_below="@+id/view3"
-    android:textSize="22sp"/>
+        android:id="@+id/view4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="#000000"
+        android:text="words"
+        android:layout_below="@+id/view3"
+        android:textSize="22sp"/>
 
-<Button
+    <TextView
+        android:id="@+id/cm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="#000000"
+        android:layout_above="@+id/foward1"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:id="@+id/cs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="#000000"
+        android:layout_toRightOf="@+id/cm"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:id="@+id/fm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="#000000"
+        android:layout_above="@+id/forward2"
+        android:textSize="22sp"/>
+
+    <TextView
+        android:id="@+id/fs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textColor="#000000"
+        android:layout_toRightOf="@+id/fm"
+        android:textSize="22sp"/>
+
+
+    <Button
+        android:textColor="#000000"
     android:onClick="pauseButton"
     android:textSize="20sp"
     android:text="| |"
@@ -68,9 +106,45 @@ tools:context="com.academy.app.musicplayer.MainActivity">
     android:id="@+id/button2"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
     android:layout_toRightOf="@id/button1"
     android:layout_alignTop="@id/button1"
     android:text="\u25BA"
+    android:textColor="#000000"
     />
+
+    <Button
+        android:onClick="rewind"
+        android:textSize="22sp"
+        android:id="@+id/foward1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/stopButton"
+        android:layout_alignTop="@id/button1"
+        android:text="&lt;"
+        android:textColor="#000000"
+        />
+
+    <Button
+        android:onClick="forward"
+        android:textSize="22sp"
+        android:id="@+id/forward2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/button2"
+        android:layout_alignTop="@id/button1"
+        android:text="&gt;"
+        android:textColor="#000000"
+        />
+
+    <Button
+        android:onClick="stopButton"
+        android:textSize="22sp"
+        android:id="@+id/stopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/button1"
+        android:layout_alignTop="@id/button1"
+        android:text="Square"
+        android:textColor="#000000"
+        />
 </RelativeLayout>
