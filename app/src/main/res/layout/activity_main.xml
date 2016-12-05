@@ -30,25 +30,29 @@ tools:context="com.academy.app.musicplayer.MainActivity">
     android:textSize="35sp" />
 
 <TextView
-    android:id="@+id/view3"
+    android:id="@+id/songT"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_below="@+id/image1"
     android:textColor="#000000"
     android:layout_centerHorizontal="true"
-    android:text="Title"
     android:textSize="36sp" />
 
 
 <TextView
-        android:id="@+id/view4"
+        android:id="@+id/songA"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textColor="#000000"
-        android:text="words"
-        android:layout_below="@+id/view3"
+        android:layout_below="@+id/songT"
         android:textSize="22sp"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
     <TextView
         android:id="@+id/cm"
@@ -56,7 +60,7 @@ tools:context="com.academy.app.musicplayer.MainActivity">
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textColor="#000000"
-        android:layout_above="@+id/rewind"
+        android:layout_above="@+id/forward"
         android:textSize="22sp"/>
 
     <TextView
@@ -74,7 +78,7 @@ tools:context="com.academy.app.musicplayer.MainActivity">
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textColor="#000000"
-        android:layout_above="@+id/forward"
+        android:layout_above="@+id/rewind"
         android:textSize="22sp"/>
 
     <TextView
@@ -93,11 +97,9 @@ tools:context="com.academy.app.musicplayer.MainActivity">
     android:textSize="20sp"
     android:text="| |"
     android:id="@+id/button1"
+        android:layout_centerVertical="true"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="200dp"
-    android:layout_marginLeft="200dp"
-    android:layout_below="@+id/view4"
     />
 
 <Button
@@ -130,9 +132,9 @@ tools:context="com.academy.app.musicplayer.MainActivity">
         android:id="@+id/stopb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/button1"
+        android:layout_toRightOf="@id/forward"
         android:layout_alignTop="@id/button1"
-        android:text="Square"
+        android:text="Stop"
         android:textColor="#000000"
         />
 
@@ -142,15 +144,17 @@ tools:context="com.academy.app.musicplayer.MainActivity">
         android:id="@+id/rewind"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/stopb"
+        android:layout_toRightOf="@id/stopb"
         android:layout_alignTop="@id/button1"
-        android:text="&lt;"
+        android:text="&lt;&lt;"
         android:textColor="#000000"
         />
 
     <SeekBar
-        android:layout_width="wrap_content"
+        android:layout_above="@id/button1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/mySongBar"
         />
+    </RelativeLayout>
 </RelativeLayout>
