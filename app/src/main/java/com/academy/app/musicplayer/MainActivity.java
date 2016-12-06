@@ -34,10 +34,8 @@ public class MainActivity extends AppCompatActivity {
     double finalTimeMS;
     double currentTimeMS;
 
-    TextView endMinutesView;
-    TextView endSecondsView;
-    TextView currentMinutesView;
-    TextView currentSecondsView;
+    TextView endTimeVar;
+    TextView currentTimeVar;
     TextView songTitleView;
     TextView songArtistView;
 
@@ -72,16 +70,14 @@ public class MainActivity extends AppCompatActivity {
         forward = (Button) findViewById(R.id.forward);
         stopButton = (Button) findViewById(R.id.stopb);
         rewind = (Button) findViewById(R.id.rewind);
-        endMinutesView = (TextView) findViewById(R.id.fm);
-        endSecondsView = (TextView) findViewById(R.id.fs);
-        currentMinutesView = (TextView) findViewById(R.id.cm);
-        currentSecondsView = (TextView) findViewById(R.id.cs);
+        endTimeVar = (TextView) findViewById(R.id.eT);
+        currentTimeVar = (TextView) findViewById(R.id.cT);
         mySongBarVar= (SeekBar) findViewById(R.id.mySongBar);
 
         mySongBarVar.setMax((int) finalTimeMS);
         mySongBarVar.setProgress((int) currentTimeMS);
-        mySongBarVar.setMinimumWidth((int) startTimeMS);
 
+        startTimeMS = (int) (finalTimeMS - finalTimeMS);
         endMinutes = (int) (finalTimeMS / 1000 / 60);
         endSeconds = ((int) (finalTimeMS / 1000)) %60;
         currentMinutes =(int) (currentTimeMS/1000/60);
@@ -90,10 +86,8 @@ public class MainActivity extends AppCompatActivity {
         songArtistView.setText(songArtist);
         songTitleView.setText(songTitle);
 
-        endMinutesView.setText("" + endMinutes);
-        endSecondsView.setText("" + endSeconds);
-        currentMinutesView.setText("" + currentMinutes);
-        currentSecondsView.setText("" + currentSeconds);
+        endTimeVar.setText(endMinutes + ":" + endSeconds);
+        currentTimeVar.setText(currentMinutes + ":" + currentSeconds);
 
 
         finalTimeMS = s1.getDuration();
