@@ -48,20 +48,14 @@ tools:context="com.academy.app.musicplayer.MainActivity">
         android:layout_below="@+id/songT"
         android:textSize="22sp"/>
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
-
     <TextView
         android:id="@+id/cT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textColor="#000000"
-        android:gravity="left"
-        android:layout_above="@+id/mySongBar"
+        android:layout_above="@+id/buttonsLayout"
+        android:layout_alignParentLeft="true"
         android:textSize="22sp"/>
 
     <TextView
@@ -70,9 +64,17 @@ tools:context="com.academy.app.musicplayer.MainActivity">
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:textColor="#000000"
-        android:gravity="right"
-        android:layout_above="@+id/mySongBar"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/buttonsLayout"
         android:textSize="22sp"/>
+
+
+    <RelativeLayout
+        android:layout_centerVertical="true"
+        android:id="@+id/buttonsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
 
 
     <Button

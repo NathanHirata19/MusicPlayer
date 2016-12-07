@@ -14,7 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    private Handler myHandler = new Handler();
+    public Handler myHandler = new Handler();
 
     private MediaPlayer s1;
 
@@ -24,28 +24,28 @@ public class MainActivity extends AppCompatActivity {
 
     private SeekBar mySongBarVar;
 
-    Button playButtonVar;
-    Button pauseButtonVar;
-    Button rewind;
-    Button forward;
-    Button stopButton;
+    public Button playButtonVar;
+    public Button pauseButtonVar;
+    public Button rewind;
+    public Button forward;
+    public Button stopButton;
 
-    double startTimeMS;
-    double finalTimeMS;
-    double currentTimeMS;
+    public double startTimeMS;
+    public double finalTimeMS;
+    public double currentTimeMS;
 
-    TextView endTimeVar;
-    TextView currentTimeVar;
-    TextView songTitleView;
-    TextView songArtistView;
+    public TextView endTimeVar;
+    public TextView currentTimeVar;
+    public TextView songTitleView;
+    public TextView songArtistView;
 
-    String songTitle;
-    String songArtist;
+    public String songTitle;
+    public String songArtist;
 
-    int endMinutes;
-    int endSeconds;
-    int currentMinutes;
-    int currentSeconds;
+    public int endMinutes;
+    public int endSeconds;
+    public int currentMinutes;
+    public int currentSeconds;
 
 
 
@@ -74,26 +74,21 @@ public class MainActivity extends AppCompatActivity {
         currentTimeVar = (TextView) findViewById(R.id.cT);
         mySongBarVar= (SeekBar) findViewById(R.id.mySongBar);
 
-        mySongBarVar.setMax((int) finalTimeMS);
-        mySongBarVar.setProgress((int) currentTimeMS);
-
-        startTimeMS = (int) (finalTimeMS - finalTimeMS);
+        startTimeMS = 0;
+        finalTimeMS = s1.getDuration();
         endMinutes = (int) (finalTimeMS / 1000 / 60);
         endSeconds = ((int) (finalTimeMS / 1000)) %60;
-        currentMinutes =(int) (currentTimeMS/1000/60);
-        currentSeconds = ((int)(currentTimeMS/1000)) %60;
 
         songArtistView.setText(songArtist);
         songTitleView.setText(songTitle);
 
         endTimeVar.setText(endMinutes + ":" + endSeconds);
-        currentTimeVar.setText(currentMinutes + ":" + currentSeconds);
 
-
-        finalTimeMS = s1.getDuration();
-        currentTimeMS = s1.getCurrentPosition();
 
         myHandler.postDelayed(UpdateSongTime, 100);
+
+        mySongBarVar.setMax((int) finalTimeMS);
+        mySongBarVar.setProgress((int) currentTimeMS);
 
 
         mySongBarVar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -117,6 +112,12 @@ public class MainActivity extends AppCompatActivity {
 
     private Runnable UpdateSongTime = new Runnable() {
         public void run() {
+            currentTimeMS = s1.getCurrentPosition();
+            currentMinutes =(int) (currentTimeMS/1000/60);
+            currentSeconds = ((int)(currentTimeMS/1000)) %60;
+            currentTimeVar.setText(currentMinutes + ":" + currentSeconds);
+
+
             myHandler.postDelayed(this, 100);
         }
     };
@@ -137,16 +138,32 @@ public class MainActivity extends AppCompatActivity {
         playButtonVar.setEnabled(true);
     }
     public void rewind(View view){
-
+        Context context = getApplicationContext();
+        CharSequence text = "Rewinded";
+        int duration = Toast.LENGTH_SHORT;
+        Toast myMessage= Toast.makeText(context, text, duration);
+        myMessage.show();
         s1.seekTo( (int) (currentTimeMS - 5000) );
     }
 
     public void forward(View view){
-
+        Context context = getApplicationContext();
+        CharSequence text = "Forwarded";
+        int duration = Toast.LENGTH_SHORT;
+        Toast myMessage= Toast.makeText(context, text, duration);
+        myMessage.show();
         s1.seekTo( (int) (currentTimeMS + 5000) );
     }
     public void stopButton(View view){
-        s1.seekTo( (int) (currentTimeMS + 5000) );
+        Context context = getApplicationContext();
+        CharSequence text = "Stopped";
+        int duration = Toast.LENGTH_SHORT;
+        Toast myMessage= Toast.makeText(context, text, duration);
+        myMessage.show();
+        pauseButtonVar.setEnabled(false);
+        playButtonVar.setEnabled(true);
+        s1.seekTo(0);
+        s1.pause();
         }
 
 }
