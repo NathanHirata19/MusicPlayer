@@ -18,11 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MediaPlayer s1;
 
-    private int seekTime;
-
     MediaMetadataRetriever songInfo = new MediaMetadataRetriever();
-
-    private SeekBar mySongBarVar;
 
     public Button playButtonVar;
     public Button pauseButtonVar;
@@ -72,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         rewind = (Button) findViewById(R.id.rewind);
         endTimeVar = (TextView) findViewById(R.id.eT);
         currentTimeVar = (TextView) findViewById(R.id.cT);
-        mySongBarVar= (SeekBar) findViewById(R.id.mySongBar);
 
         startTimeMS = 0;
         finalTimeMS = s1.getDuration();
@@ -86,28 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         myHandler.postDelayed(UpdateSongTime, 100);
-
-        mySongBarVar.setMax((int) finalTimeMS);
-        mySongBarVar.setProgress((int) currentTimeMS);
-
-
-        mySongBarVar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                seekTime=progress;
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                s1.seekTo( seekTime);
-                startTimeMS = seekTime;
-            }
-        });
     }
 
     private Runnable UpdateSongTime = new Runnable() {
@@ -116,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
             currentMinutes =(int) (currentTimeMS/1000/60);
             currentSeconds = ((int)(currentTimeMS/1000)) %60;
             currentTimeVar.setText(currentMinutes + ":" + currentSeconds);
-
 
             myHandler.postDelayed(this, 100);
         }
