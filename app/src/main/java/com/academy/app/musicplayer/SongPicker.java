@@ -2,6 +2,7 @@ package com.academy.app.musicplayer;
 
 import android.content.Intent;
 import android.media.MediaMetadataRetriever;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ public class SongPicker extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_song_picker);
+
         pickSongButtonVar = (Button) findViewById(R.id.pS);
 
         Uri mediaPath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.song1);

@@ -1,6 +1,7 @@
 package com.academy.app.musicplayer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -43,12 +44,21 @@ public class MainActivity extends AppCompatActivity {
     public int currentMinutes;
     public int currentSeconds;
 
+    Intent launchSongPlayer;
 
+    Intent thisIntent = getIntent();
+    String songID = thisIntent.getStringExtra("songMessage");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MediaPlayer.create(this, Integer.parseInt(songID));
+
+        String message = String.valueOf(R.raw.song1);
+        launchSongPlayer.putExtra("songMessage", message);
 
         Uri mediaPath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.song1);
         songInfo.setDataSource(this, mediaPath);
@@ -137,5 +147,22 @@ public class MainActivity extends AppCompatActivity {
         s1.seekTo(0);
         s1.pause();
         }
+
+    public void launchSong1(View view){
+        String songID = String.valueOf(R.raw.song1);
+        launchPlayer(songID);
+    }
+
+    public void launchSong2(View view){
+        String songID = String.valueOf(R.raw.song2);
+        launchPlayer(songID);
+    }
+
+    public void launchPlayer(String songID){
+//Create your Intent:  Intent launchSongPlayer
+        String message = String.valueOf(R.raw.song1);
+        launchSongPlayer.putExtra("songMessage", message);
+//Launch your Intent
+    }
 
 }
