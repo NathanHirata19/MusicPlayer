@@ -148,21 +148,5 @@ public class MainActivity extends AppCompatActivity {
         s1.pause();
         }
 
-    public void launchSong1(View view){
-        String songID = String.valueOf(R.raw.song1);
-        launchPlayer(songID);
-    }
-
-    public void launchSong2(View view){
-        String songID = String.valueOf(R.raw.song2);
-        launchPlayer(songID);
-    }
-
-    public void launchPlayer(String songID){
-//Create your Intent:  Intent launchSongPlayer
-        String message = String.valueOf(R.raw.song1);
-        launchSongPlayer.putExtra("songMessage", message);
-//Launch your Intent
-    }
 
 }

@@ -14,7 +14,15 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:id="@+id/pS"
-        android:onClick="pickSong"
+        android:onClick="launchSong1"
+        />
+    <Button
+        android:layout_below="@id/pS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/pS2"
+        android:onClick="launchSong2"
         />
 
 </RelativeLayout>
