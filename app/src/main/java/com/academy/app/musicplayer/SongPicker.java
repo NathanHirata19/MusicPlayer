@@ -40,28 +40,26 @@ public class SongPicker extends AppCompatActivity {
         pickSongButtonVar2.setText(songTitle2);
 
         launchSongPlayer = new Intent(this, MainActivity.class);
-    }
-    public void pickSong() {
-        pickSongButtonVar.setEnabled(true);
-        startActivity(launchSongPlayer);
+
+        int s1id = R.raw.song1;
+        String s1t = songInfo.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+        String s1a = songInfo.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+        SongObject s1 = new SongObject(s1id, s1t,s1a);
     }
 
     public void launchSong1(View view){
-        pickSongButtonVar.setEnabled(true);
         String songID = String.valueOf(R.raw.song1);
         launchPlayer(songID);
     }
 
     public void launchSong2(View view){
-        pickSongButtonVar.setEnabled(true);
         String songID = String.valueOf(R.raw.song2);
         launchPlayer(songID);
     }
 
     public void launchPlayer(String songID){
         Intent launchSongPlayer = new Intent(SongPicker.this, MainActivity.class);
-        String message = String.valueOf(R.raw.song1);
-        launchSongPlayer.putExtra("songMessage", message);
+        launchSongPlayer.putExtra("songMessage", songID);
         startActivity(launchSongPlayer);
 
     }

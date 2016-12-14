@@ -21,6 +21,10 @@ public class MainActivity extends AppCompatActivity {
 
     MediaMetadataRetriever songInfo = new MediaMetadataRetriever();
 
+    private SeekBar mySongBarVar;
+
+    public int seekTime;
+
     public Button playButtonVar;
     public Button pauseButtonVar;
     public Button rewind;
@@ -45,20 +49,19 @@ public class MainActivity extends AppCompatActivity {
     public int currentSeconds;
 
     Intent launchSongPlayer;
+    String songID;
 
-    Intent thisIntent = getIntent();
-    String songID = thisIntent.getStringExtra("songMessage");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Intent thisIntent = getIntent();
+        songID = thisIntent.getStringExtra("songMessage");
         MediaPlayer.create(this, Integer.parseInt(songID));
 
-        String message = String.valueOf(R.raw.song1);
-        launchSongPlayer.putExtra("songMessage", message);
+//        String message = String.valueOf(R.raw.song1);
 
         Uri mediaPath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.song1);
         songInfo.setDataSource(this, mediaPath);
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         songArtist = songInfo.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
 
 
-
+        mySongBarVar= (SeekBar) findViewById(R.id.mySongBar);
         songTitleView = (TextView) findViewById(R.id.songT);
         songArtistView = (TextView) findViewById(R.id.songA);
         s1 = MediaPlayer.create(this,R.raw.song1);
@@ -91,7 +94,30 @@ public class MainActivity extends AppCompatActivity {
 
 
         myHandler.postDelayed(UpdateSongTime, 100);
+
+        mySongBarVar.setMax((int) finalTimeMS);
+        mySongBarVar.setProgress((int) currentTimeMS);
+
+        mySongBarVar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser)
+            {
+                seekTime=progress;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                s1.seekTo( seekTime);
+                currentTimeMS = seekTime;
+            }
+        });
     }
+
 
     private Runnable UpdateSongTime = new Runnable() {
         public void run() {
