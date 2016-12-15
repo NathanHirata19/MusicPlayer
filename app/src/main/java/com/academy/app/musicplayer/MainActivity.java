@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
         songID = thisIntent.getStringExtra("songMessage");
         MediaPlayer.create(this, Integer.parseInt(songID));
 
-//        String message = String.valueOf(R.raw.song1);
-
         Uri mediaPath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.song1);
         songInfo.setDataSource(this, mediaPath);
 
