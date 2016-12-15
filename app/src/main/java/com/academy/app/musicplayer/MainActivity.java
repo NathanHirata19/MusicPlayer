@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     private SeekBar mySongBarVar;
 
+    public int songNumber;
+
     public int seekTime;
 
     public Button playButtonVar;
@@ -31,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public Button forward;
     public Button stopButton;
 
-    public double startTimeMS;
+    public double startSeconds;
     public double finalTimeMS;
     public double currentTimeMS;
 
@@ -54,11 +56,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Intent thisIntent = getIntent();
-        songID = thisIntent.getStringExtra("songMessage");
+
+        songNumber = Integer.parseInt( thisIntent.getStringExtra("songMessage"));
+        thisSong = MainActivity.songList.get(songNumber);
+// use thisSong.songID to get the ID number for the song for the MediaPlayer and Metadata
+// use thisSong.artist and thisSong.title to get the artist and title now
+
         MediaPlayer.create(this, Integer.parseInt(songID));
 
         Uri mediaPath = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.song1);
@@ -80,16 +87,11 @@ public class MainActivity extends AppCompatActivity {
         endTimeVar = (TextView) findViewById(R.id.eT);
         currentTimeVar = (TextView) findViewById(R.id.cT);
 
-        startTimeMS = 0;
+        startSeconds = 0;
         finalTimeMS = s1.getDuration();
-        endMinutes = (int) (finalTimeMS / 1000 / 60);
-        endSeconds = ((int) (finalTimeMS / 1000)) %60;
 
         songArtistView.setText(songArtist);
         songTitleView.setText(songTitle);
-
-        endTimeVar.setText(endMinutes + ":" + endSeconds);
-
 
         myHandler.postDelayed(UpdateSongTime, 100);
 
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 currentTimeMS = seekTime;
             }
         });
+
     }
 
 
@@ -171,6 +174,43 @@ public class MainActivity extends AppCompatActivity {
         s1.seekTo(0);
         s1.pause();
         }
+
+    public void playSongNow() {
+        Toast.makeText(getApplicationContext(), "Playing music", Toast.LENGTH_SHORT).show();
+        songPlayer.start();
+        finalTimeMS = songPlayer.getDuration();
+        currentTimeMS = songPlayer.getCurrentPosition();
+        seekbar.setMax((int) finalTimeMS);
+
+        int endMinutes = (int) (finalTimeMS / 1000 / 60);
+        int endSeconds = ((int) (finalTimeMS / 1000)) %60;
+        endTimeVar.setText(endMinutes + " min, "+ endSeconds+" sec");
+
+        int currentMinutes =(int) (currentTimeMS/1000/60);
+        int currentSeconds = ((int)(currentTimeMS/1000)) %60;
+        currentTimeVar.setText(currentMinutes + " min, "+ startSeconds+" sec");
+
+        seekbar.setProgress((int) currentTimeMS);
+        myHandler.postDelayed(UpdateSongTime, 100);
+        stopButton.setEnabled(true);
+        pauseButtonVar.setEnabled(true);
+        playButtonVar.setEnabled(false);
+    }
+
+    private void playNewSong(int position){
+        thisSong = MainActivity.songList.get(position);
+        songTitle = thisSong.title;
+        songArtist = thisSong.artist;
+
+        songTitleView.setText(songTitle);
+        songArtistView.setText(songArtist);
+//in this version, I called my MediaPlayer songPlayer
+        songPlayer.stop();
+        songPlayer= MediaPlayer.create(this, thisSong.songID);
+        songPlayer.seekTo(0);
+
+        playSongNow();
+    }
 
 
 }

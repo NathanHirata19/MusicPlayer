@@ -16,12 +16,13 @@ public class SongAdapter extends ArrayAdapter<SongObject> {
 
     @Override
     public View getView(int position, View songView, ViewGroup parent) {
+        SongObject thisSong = getItem(position);
         TextView songNameViewVar= (TextView) songView.findViewById(R.id.songTitle);
         TextView songArtistViewVar= (TextView) songView.findViewById(R.id.songArtist);
         songNameViewVar.setText(thisSong.songTitle);
         songArtistViewVar.setText(thisSong.songArtist);
 
-        SongObject thisSong = getItem(position);
+
 
         if (songView == null) {
             songView = LayoutInflater.from(getContext()).inflate( R.layout.song_list_item  , parent, false);

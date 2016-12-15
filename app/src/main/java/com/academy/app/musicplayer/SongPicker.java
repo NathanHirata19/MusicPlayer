@@ -20,11 +20,14 @@ public class SongPicker extends AppCompatActivity {
 
     private Button pickSongButtonVar2;
     private Button pickSongButtonVar;
+
     MediaMetadataRetriever songInfo = new MediaMetadataRetriever();
-    MediaMetadataRetriever songInfo2 = new MediaMetadataRetriever();
     Intent launchSongPlayer;
-    String songTitle;
-    String songTitle2;
+    public String songTitle;
+
+    public String songArtist;
+
+    public int songID;
 
     public static int[] songIDs;
     public static ArrayList<SongObject> songList ;
@@ -76,54 +79,16 @@ public class SongPicker extends AppCompatActivity {
                 launchPlayer(position);
             }
         });
-        songNumber = Integer.parseInt( thisIntent.getStringExtra("songMessage"));
-        thisSong = MainActivity.songList.get(songNumber);
-// use thisSong.songID to get the ID number for the song for the MediaPlayer and Metadata
-// use thisSong.artist and thisSong.title to get the artist and title now
+
 
         songPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
-                // call your skip forward method here
+                //call forward method
             }
         });
     }
 
-    private void playNewSong(int position){
-        thisSong = MainActivity.songList.get(position);
-        songTitle = thisSong.title;
-        songArtist = thisSong.artist;
 
-        songNameViewVar.setText(songTitle);
-        songArtistViewVar.setText(songArtist);
-//in this version, I called my MediaPlayer songPlayer
-        songPlayer.stop();
-        songPlayer= MediaPlayer.create(this, thisSong.songID);
-        songPlayer.seekTo(0);
-
-        playSongNow();
-    }
-
-    public void playSongNow() {
-        Toast.makeText(getApplicationContext(), "Playing music", Toast.LENGTH_SHORT).show();
-        songPlayer.start();
-        finalTimeMS = songPlayer.getDuration();
-        startTimeMS = songPlayer.getCurrentPosition();
-        seekbar.setMax((int) finalTimeMS);
-
-        int endMinutes = (int) (finalTimeMS / 1000 / 60);
-        int endSeconds = ((int) (finalTimeMS / 1000)) %60;
-        endTimeViewVar.setText(endMinutes + " min, "+ endSeconds+" sec");
-
-        int currentMinutes =(int) (currentTimeMS/1000/60);
-        int currentSeconds = ((int)(currentTimeMS/1000)) %60;
-        currentTimeViewVar.setText(currentMinutes + " min, "+ startSeconds+" sec");
-
-        seekbar.setProgress((int) currentTimeMS);
-        myHandler.postDelayed(UpdateSongTime, 100);
-        stopButtonVar.setEnabled(true);
-        pauseButtonVar.setEnabled(true);
-        playButtonVar.setEnabled(false);
-    }
 
     public void playButtonClick(View view){
         playSong();
